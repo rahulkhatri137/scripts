@@ -8,7 +8,7 @@ GITHUB_OAUTH_TOKEN = getenv("GITHUB_OAUTH_TOKEN")
 if GITHUB_OAUTH_TOKEN is None:
     GITHUB_OAUTH_TOKEN = input("Enter your Github API token: ")
 
-headers = {"Authorization": "token " + GITHUB_OAUTH_TOKEN}
+headers = {"Authorization": f"token {GITHUB_OAUTH_TOKEN}"}
 
 org = input("Enter organization name: ")
 

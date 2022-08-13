@@ -17,8 +17,7 @@ response = get(
     headers=headers,
 )
 while True:
-    for repo in response.json():
-        repos.append(repo["path"])
+    repos.extend(repo["path"] for repo in response.json())
     try:
         response = get(response.links["next"]["url"], data=data, headers=headers)
     except KeyError:

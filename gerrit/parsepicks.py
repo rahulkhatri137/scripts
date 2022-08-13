@@ -13,10 +13,7 @@ GERRIT_API = os.path.join(GERRIT, 'changes/?q=')
 
 def query_changes(query):
     changes = requests.get(GERRIT_API+query).text[5:]
-    ret = ""
-    for line in json.loads(changes):
-        ret += line['subject'] + '\n'
-    return ret
+    return "".join(line['subject'] + '\n' for line in json.loads(changes))
 
 def main():
     if len(sys.argv) != 2:
@@ -30,7 +27,7 @@ def main():
         if i.strip().split(' ')[0] == '-t':
             for j in i.split(' '):
                 if j not in ('', '-t', 'sysserv-pie'):
-                    commits += query_changes('status:open topic:{}'.format(j))
+                    commits += query_changes(f'status:open topic:{j}')
         else:
             for j in i.strip().split(' '):
                 if '-' in j:
@@ -44,7 +41,9 @@ def main():
                 else:
                     commits += query_changes(str(j))
 
-    print("{}/{}".format(DOGBIN, json.loads(requests.post(DOGBIN_API, commits).content.decode())['key']))
+    print(
+        f"{DOGBIN}/{json.loads(requests.post(DOGBIN_API, commits).content.decode())['key']}"
+    )
 
 if __name__ == '__main__':
     main()

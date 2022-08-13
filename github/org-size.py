@@ -11,7 +11,7 @@ if GITHUB_OAUTH_TOKEN is None:
         "Enter your Github API token or try without one, which may result in you getting rate-limited soon: "
     )
 
-headers = {"Authorization": "token " + GITHUB_OAUTH_TOKEN}
+headers = {"Authorization": f"token {GITHUB_OAUTH_TOKEN}"}
 
 org = input("Enter organization name: ")
 
